@@ -1,7 +1,8 @@
-from kcsh.constants import *
-from kcsh.exceptions.ExitShellException import ExitShellException
+import sys
+from clint.textui import colored, puts
+from kcsh.exceptions import ExitShellException
 
 
 def exit(args):
-    raise ExitShellException()
-    return SHELL_STATUS_STOP
+    puts(colored.green('電：提督我們下次再見'))
+    raise ExitShellException('Exit')

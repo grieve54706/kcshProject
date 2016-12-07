@@ -20,5 +20,3 @@ def history(args):
             if line_num >= start:
                 sys.stdout.write('%d %s' % (line_num + 1, line))
         sys.stdout.flush()
-
-    # return SHELL_STATUS_RUN

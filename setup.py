@@ -7,7 +7,7 @@ setup(name='kcsh',
       description='KanColle Shell',
       author='Grieve',
       author_email='grieve54706@gmail.com',
-      url='',
+      url='https://github.com/grieve54706/kcshProject',
       packages=['kcsh', 'kcsh.builtins'],
       entry_points="""
       [console_scripts]

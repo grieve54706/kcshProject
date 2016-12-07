@@ -9,13 +9,14 @@ import signal
 import subprocess
 import platform
 from clint.textui import colored
-from kcsh.shell import *
-from kcsh.constants import *
+from kcsh import shell
 from kcsh.builtins import *
+from kcsh.constants import *
+from kcsh.exceptions import *
 
 map_cmd = {}
 
-# testGit
+
 if __name__ == "__main__":
     main()
 
@@ -39,10 +40,12 @@ def register_command(key, func):
 def shell_loop():
     status = SHELL_STATUS_RUN
 
-    while true:
+    while True:
         display_cmd_prompt()
         ignore_signals()
         try:
+            # FIXME: 會有亂碼問題
+            # cmd = input(str(colored.green('電：提督、請下命令') + ">"))
             cmd = sys.stdin.readline()
             cmd_tokens = tokenize(cmd)
             cmd_tokens = preprocess(cmd_tokens)
@@ -52,18 +55,6 @@ def shell_loop():
         except Exception as e:
             _, err, _ = sys.exc_info()
             print(err)
-
-    # while status == SHELL_STATUS_RUN:
-    #     display_cmd_prompt()
-    #     ignore_signals()
-    #     try:
-    #         cmd = sys.stdin.readline()
-    #         cmd_tokens = tokenize(cmd)
-    #         cmd_tokens = preprocess(cmd_tokens)
-    #         status = execute(cmd_tokens)
-    #     except:
-    #         _, err, _ = sys.exc_info()
-    #         print(err)
 
 
 def display_cmd_prompt():
@@ -102,11 +93,11 @@ def execute(cmd_tokens):
         cmd_args = cmd_tokens[1:]  # 第一個以後的都是參數
 
         if cmd_key in map_cmd:
-            return map_cmd[cmd_key](cmd_args)
-            # 回傳動作後結束
+            return map_cmd[cmd_key](cmd_args)  # 回傳動作後結束
 
         # 若找無動作為超出範圍，拋出exception
         signal.signal(signal.SIGINT, handler_kill)
+
         # 產生子執行緒執行原本的系統指令
         if platform.system() == "Windows":
             command = ""
