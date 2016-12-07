@@ -1,5 +1,5 @@
 import os
-from yosh.constants import *
+from kcsh.constants import *
 
 
 def getenv(args):

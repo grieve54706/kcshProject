@@ -1,6 +1,5 @@
-from yosh.constants import *
+from kcsh.constants import *
 
 
 def exit(args):
-    print('inExit')
     return SHELL_STATUS_STOP
