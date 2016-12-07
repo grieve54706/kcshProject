@@ -21,4 +21,4 @@ def history(args):
                 sys.stdout.write('%d %s' % (line_num + 1, line))
         sys.stdout.flush()
 
-    return SHELL_STATUS_RUN
+    # return SHELL_STATUS_RUN
