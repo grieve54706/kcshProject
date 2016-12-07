@@ -7,4 +7,4 @@ def cd(args):
         os.chdir(args[0])
     else:
         os.chdir(os.getenv('HOME'))
-    # return SHELL_STATUS_RUN
+    return SHELL_STATUS_RUN

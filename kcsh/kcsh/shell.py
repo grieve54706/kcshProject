@@ -9,13 +9,13 @@ import signal
 import subprocess
 import platform
 from clint.textui import colored
-from kcsh.shell import *
+from shell import *
 from kcsh.constants import *
 from kcsh.builtins import *
 
 map_cmd = {}
 
-# testGit
+
 if __name__ == "__main__":
     main()
 
@@ -39,31 +39,22 @@ def register_command(key, func):
 def shell_loop():
     status = SHELL_STATUS_RUN
 
-    while true:
+    while status == SHELL_STATUS_RUN:
+        sys.stdout.write('status1 is :' + str(status) + '\n')
+
         display_cmd_prompt()
+
         ignore_signals()
+
         try:
             cmd = sys.stdin.readline()
             cmd_tokens = tokenize(cmd)
             cmd_tokens = preprocess(cmd_tokens)
-            execute(cmd_tokens)
-        except ExitShellException:
-            break
-        except Exception as e:
+            status = execute(cmd_tokens)
+            sys.stdout.write('status2 is :' + str(status) + '\n')
+        except:
             _, err, _ = sys.exc_info()
             print(err)
-
-    # while status == SHELL_STATUS_RUN:
-    #     display_cmd_prompt()
-    #     ignore_signals()
-    #     try:
-    #         cmd = sys.stdin.readline()
-    #         cmd_tokens = tokenize(cmd)
-    #         cmd_tokens = preprocess(cmd_tokens)
-    #         status = execute(cmd_tokens)
-    #     except:
-    #         _, err, _ = sys.exc_info()
-    #         print(err)
 
 
 def display_cmd_prompt():
