@@ -3,9 +3,9 @@
 import os
 import sys
 import shlex
-import getpass
 import socket
 import signal
+import getpass
 import subprocess
 import platform
 from clint.textui import colored
@@ -13,6 +13,7 @@ from kcsh import shell
 from kcsh.builtins import *
 from kcsh.constants import *
 from kcsh.exceptions import *
+from kcsh.WindowHandle import getWinHandle
 
 map_cmd = {}
 
@@ -31,6 +32,8 @@ def init():
     register_command("exit", exit)
     register_command("history", history)
     register_command("hello", hello)
+
+    getWinHandle()
 
 
 def register_command(key, func):
@@ -58,7 +61,7 @@ def shell_loop():
 
 
 def display_cmd_prompt():
-    sys.stdout.write(colored.green('電：提督、請下命令') + ">")
+    sys.stdout.write(colored.cyan('電：提督、請下命令') + ">")
     sys.stdout.flush()
 
 
